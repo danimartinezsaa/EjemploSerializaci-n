@@ -69,7 +69,6 @@ public class Metodos{
     
     public static void anadir(String fichero){
         MiObjectOutputStream miO=null;
-        ObjectOutputStream anadir=null;
         
         try{
             miO=new MiObjectOutputStream(new FileOutputStream(fichero,true));
