@@ -11,8 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -70,7 +68,7 @@ public class Metodos{
     }
     
     public static void anadir(String fichero){
-        MiObjectOutputStream miO;
+        MiObjectOutputStream miO=null;
         ObjectOutputStream anadir=null;
         
         try{
@@ -78,16 +76,20 @@ public class Metodos{
             Ordenador ordenador=new Ordenador(new Cpu(Integer.parseInt(JOptionPane.showInputDialog("Inserte velocidad cpu")),Integer.parseInt(JOptionPane.showInputDialog("Inserte memoria cpu")))
                     ,new Pantalla(JOptionPane.showInputDialog("Inserte marca de la pantalla"),Integer.parseInt(JOptionPane.showInputDialog("Inserte pulgadas de la pantalla"))),
                     new Rato(new Mouse(JOptionPane.showInputDialog("Inserte tipo ratón"))));
-            anadir.writeObject(ordenador);
+            miO.writeObject(ordenador);
         }catch(FileNotFoundException ex){
             System.out.println("FileNotFoundException");
         }catch(IOException ex){
-            System.out.println("IOException");
+            System.out.println("IOException");       
+        }catch(NullPointerException np){
+            System.out.println("Error nullpointer");
         }finally{
             try{
-                anadir.close();
+                miO.close();
             }catch(IOException ex){
                 System.out.println("IOException");
+            }catch(NullPointerException np){
+                System.out.println("Fichero no cerrado");
             }
         }
     }
